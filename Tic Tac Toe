@@ -1,0 +1,67 @@
+# Tic Tac Toe Game
+
+board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+
+# Function to draw the board
+def draw_board():
+    print(" %s | %s | %s " % (board[0], board[1], board[2]))
+    print("---+---+---")
+    print(" %s | %s | %s " % (board[3], board[4], board[5]))
+    print("---+---+---")
+    print(" %s | %s | %s " % (board[6], board[7], board[8]))
+
+# Function to check if a player has won
+def check_win(player):
+    # Check rows
+    if (board[0] == player and board[1] == player and board[2] == player) or \
+       (board[3] == player and board[4] == player and board[5] == player) or \
+       (board[6] == player and board[7] == player and board[8] == player):
+        return True
+    # Check columns
+    elif (board[0] == player and board[3] == player and board[6] == player) or \
+         (board[1] == player and board[4] == player and board[7] == player) or \
+         (board[2] == player and board[5] == player and board[8] == player):
+        return True
+    # Check diagonals
+    elif (board[0] == player and board[4] == player and board[8] == player) or \
+         (board[2] == player and board[4] == player and board[6] == player):
+        return True
+    else:
+        return False
+
+# Function to check if the board is full
+def check_full():
+    if " " in board:
+        return False
+    else:
+        return True
+
+# Main game loop
+def main():
+    player1 = "X"
+    player2 = "O"
+    current_player = player1
+    winner = False
+    while not winner and not check_full():
+        draw_board()
+        move = int(input("Enter move for %s (1-9): " % current_player)) - 1
+        if board[move] == " ":
+            board[move] = current_player
+            if check_win(current_player):
+                winner = True
+            else:
+                # Switch players
+                if current_player == player1:
+                    current_player = player2
+                else:
+                    current_player = player1
+        else:
+            print("Invalid move!")
+    draw_board()
+    if winner:
+        print("Player %s wins!" % current_player)
+    else:
+        print("Draw!")
+
+# Run the game
+main()
